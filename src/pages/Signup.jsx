@@ -11,21 +11,44 @@ function Signup() {
     const [mobile, setMobile] = useState("");
     const [role, setRole] = useState("");
 
+    async function handleSubmit(e) {
+
+      e.preventDefault()
+
+      const resp = await fetch("http://localhost:8080/signUp",
+        {
+          method : 'POST',
+          body : JSON.stringify(
+            { 
+              'username' : username, 
+              'email' : email,
+              'password' : password,
+              'gender' : gender,
+              'dob' : dob,
+              'mobile' : mobile,
+              'role' : role
+            })
+        });
+        const msg = await resp.text();
+        console.log(msg);
+    }
+
 
   return (
     <>
       <h2>Sign up below:</h2>
-      <form>
+
+      <form onSubmit={handleSubmit}>
         <label for="username">Username:</label>
-        <input type="text" id="username" name="username" />
+        <input type="text" id="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
         <br />
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" />
+        <input type="email" id="email" name="email" value={email} />
         <br />
 
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" />
+        <input type="password" id="password" name="password" value={password} />
         <br />
 
         <label>Gender:</label>
