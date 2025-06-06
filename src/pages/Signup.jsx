@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Signup() {
   const [username, setUsername] = useState("");
@@ -18,6 +19,7 @@ function Signup() {
       password,
       gender,
       dob,
+      mobile,
       role,
     };
 
@@ -116,7 +118,7 @@ function Signup() {
           id="mobile"
           name="mobile"
           value={mobile}
-          onChange={(e) => setDob(e.target.value)}
+          onChange={(e) => setMobile(e.target.value)}
         />
         <br /><br />
         <label for="role">Role:</label>
@@ -139,6 +141,9 @@ function Signup() {
         <br /><br />
         <button type="submit">Sign Up</button>
       </form>
+      <br/>
+      <br/>
+      <Link to="/">Go back</Link>
     </>
   );
 }
