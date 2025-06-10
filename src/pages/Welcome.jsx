@@ -1,15 +1,15 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 function Welcome() {
   return (
     <>
         <h2>
-            <Link to = "/signup">Sign Up</Link>
+            <NavLink to = "/signup">Sign Up</NavLink>
         </h2>
         <br/>
         <h2>
-            <Link to = "/signin">Sign In</Link>
+            <NavLink to = "/signin">Sign In</NavLink>
         </h2>
     </>
   )

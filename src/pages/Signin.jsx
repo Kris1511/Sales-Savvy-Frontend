@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Signin() {
   const [username, setUsername] = useState("");
 
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -25,6 +27,15 @@ function Signin() {
 
       const msg = await resp.text();
       alert(msg);
+
+      if (msg === "admin") {
+        setTimeout(() => navigate("/admin_home"), 1500); // Redirect to admin home
+      } else if (msg === "customer") {
+        navigate('/customer_home');                      // Redirect to customer home
+      } else {
+        alert(msg + " logged in");                       // Show error message for invalid credentials
+      }
+      
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to submit data");
@@ -59,8 +70,8 @@ function Signin() {
         <br />
         <button type="submit">Sign In</button>
       </form>
-      <br/>
-      <br/>
+      <br />
+      <br />
       <Link to="/">Go back</Link>
     </>
   );

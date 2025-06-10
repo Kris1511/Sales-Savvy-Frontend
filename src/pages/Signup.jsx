@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Signup() {
   const [username, setUsername] = useState("");
@@ -9,6 +9,8 @@ function Signup() {
   const [dob, setDob] = useState("");
   const [mobile, setMobile] = useState("");
   const [role, setRole] = useState("");
+
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -32,8 +34,13 @@ function Signup() {
         body: JSON.stringify(data),
       });
 
+      
       const msg = await resp.text();
       alert(msg);
+
+      if (msg === "User create successfully") {
+        setTimeout(() => navigate("/Signin"), 1500);
+      }
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to submit data");
