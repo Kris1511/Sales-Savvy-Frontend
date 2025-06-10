@@ -1,8 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 function Delete_product() {
+
+  const [id, setId] = useState();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      id
+    }
+
+    try {
+      const resp = await fetch("http://localhost:8080/deleteProduct/${id}", {
+        method : "DELETE"
+      });
+
+      const msg = resp.text();
+      alert(msg);
+    } catch (error) {
+      alert("There is something failed");
+    }
+  }
+
   return (
-    <div>Delete_product</div>
+    <div>
+      <h3>Delete Product: </h3>
+
+      <form action="" onSubmit={handleSubmit}>
+        <label htmlFor="id">Id: </label>
+        <input
+          type="text"
+          id="id"
+          name="id"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
+        />
+        <br />
+        <br />
+        <button type="submit">Delete Product</button>
+      </form>
+    </div>
   )
 }
 
