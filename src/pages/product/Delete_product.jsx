@@ -12,12 +12,14 @@ function Delete_product() {
     }
 
     try {
-      const resp = await fetch("http://localhost:8080/deleteProduct/${id}", {
+      const resp = await fetch(`http://localhost:8080/deleteProduct/${id}`, {
         method : "DELETE"
       });
 
-      const msg = resp.text();
+      const msg = await resp.text();
       alert(msg);
+      
+      setId('');
     } catch (error) {
       alert("There is something failed");
     }
