@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import ProductCart from "../pages/component/ProductCart";
 
 function Customer_home() {
   const [product, setProduct] = useState([]);
@@ -13,6 +14,8 @@ function Customer_home() {
         );
 
         setProduct(response.data);
+        console.log(response);
+        
       } catch (err) {
         console.error("Error fetching assets", err);
       }
@@ -21,34 +24,34 @@ function Customer_home() {
     fetchProduct();
   }, []);
 
+  const handleAddToCart = async () => {
+
+    
+
+  }
+
   return (
     <div>
-      <h2>Customer Home: </h2>
+      <h1>Customer Home: </h1>
+       <h2 className="text-center mb-6">Available Products</h2>
 
-      <table border={1}>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Photos</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Category</th>
-          </tr>
-        </thead>
-        <tbody>
           {product.map((p) => (
-            <tr key={p.id}>
-              <td>{p.id}</td>
-              <td>{p.photo}</td>
-              <td>{p.name}</td>
-              <td>{p.description}</td>
-              <td>{p.price}</td>
-              <td>{p.category}</td>
-            </tr>
+
+            <ProductCart 
+            key={p.id}
+            product = {p}
+            onAddToCart = {handleAddToCart}
+            />
+            // <tr key={p.id}>
+            //   <td>{p.id}</td>
+            //   <td>{p.photo}</td>
+            //   <td>{p.name}</td>
+            //   <td>{p.description}</td>
+            //   <td>{p.price}</td>
+            //   <td>{p.category}</td>
+            // </tr>
           ))}
-        </tbody>
-      </table>
+
     </div>
   );
 }

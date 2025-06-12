@@ -98,16 +98,6 @@ function Add_product() {
         />
         <br />
         <br />
-        <label htmlFor="reviews">Reviews: </label>
-        <input
-          type="text"
-          id="reviews"
-          name="reviews"
-          value={reviews}
-          onChange={(e) => setReviews(e.target.value)}
-        />
-        <br />
-        <br />
         <button type="submit">Add Product</button>
       </form>
       <br />
