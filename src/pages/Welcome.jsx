@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 function Welcome() {
   return (
     <>
+     <h2>Welcome sales savvy project:</h2>
         <h2>
             <NavLink to = "/signup">Sign Up</NavLink>
         </h2>

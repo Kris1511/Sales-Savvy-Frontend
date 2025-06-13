@@ -10,11 +10,11 @@ import Add_product from "./pages/product/Add_product";
 import Update_product from "./pages/product/Update_product";
 import Search_product from "./pages/product/Search_product";
 import Delete_product from "./pages/product/Delete_product";
+import Show_product from "./pages/showproduct/Show_product";
 
 function App() {
   return (
     <>
-      <h2>Welcome sales savvy project:</h2>
       <Router>
         <Routes>
           <Route path="/" element={<Welcome />} />
@@ -32,6 +32,9 @@ function App() {
           <Route path="/updateProduct" element = { <Update_product /> } />
           <Route path="/searchProduct" element = { <Search_product /> } />
           <Route path="/deleteProduct" element = { <Delete_product /> } />
+
+          {/* show product */}
+          <Route path="/showProduct" element= { <Show_product /> } />
         </Routes>
       </Router>
     </>
