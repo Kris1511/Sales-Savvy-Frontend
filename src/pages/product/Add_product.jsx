@@ -7,7 +7,7 @@ function Add_product() {
   const [price, setPrice] = useState("");
   const [photo, setPhoto] = useState("");
   const [category, setCategory] = useState("");
-  const [reviews, setReviews] = useState("");
+  // const [reviews, setReviews] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +37,7 @@ function Add_product() {
       setPrice("");
       setPhoto("");
       setCategory("");
-      setReviews("");
+      // setReviews("");
     } catch (error) {
       console.log("Failed to add product");
     }

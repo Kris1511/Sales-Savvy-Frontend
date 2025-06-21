@@ -10,7 +10,7 @@ import Add_product from "./pages/product/Add_product";
 import Update_product from "./pages/product/Update_product";
 import Search_product from "./pages/product/Search_product";
 import Delete_product from "./pages/product/Delete_product";
-import Show_product from "./pages/showproduct/Show_product";
+import Show_product from "./pages/productDetails/Show_product";
 
 function App() {
   return (
