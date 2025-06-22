@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 function Show_product() {
   const location = useLocation();
@@ -28,11 +28,13 @@ function Show_product() {
           <p>
             <strong>Price:</strong> {product.price}
           </p>
-          {/* Add more fields if needed */}
         </div>
       ) : (
         <p>No product data available.</p>
       )}
+      <br />
+      <br />
+      <Link to="/searchProduct">Go back</Link>
     </div>
   );
 }

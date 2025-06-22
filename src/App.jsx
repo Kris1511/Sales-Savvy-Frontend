@@ -11,6 +11,7 @@ import Update_product from "./pages/product/Update_product";
 import Search_product from "./pages/product/Search_product";
 import Delete_product from "./pages/product/Delete_product";
 import Show_product from "./pages/productDetails/Show_product";
+import Get_all_product from "./pages/productDetails/Get_all_product"
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/updateProduct" element = { <Update_product /> } />
           <Route path="/searchProduct" element = { <Search_product /> } />
           <Route path="/deleteProduct" element = { <Delete_product /> } />
+          <Route path="/getAllProduct" element = { <Get_all_product /> } />
 
           {/* show product */}
           <Route path="/showProduct" element= { <Show_product /> } />

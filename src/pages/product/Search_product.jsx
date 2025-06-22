@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Show_product from "../productDetails/Show_product";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Search_product() {
   const [searchId, setSearchId] = useState("");
@@ -56,6 +55,9 @@ function Search_product() {
         <br />
         <button type="submit">Search Product</button>
       </form>
+      <br />
+      <br />
+      <Link to="/product-management">Go back</Link>
     </>
   );
 }

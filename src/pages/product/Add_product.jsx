@@ -48,7 +48,7 @@ function Add_product() {
       <h3>Add New Product: </h3>
 
       <form action="" onSubmit={handleSubmit}>
-        <label htmlFor="name">Name: </label>
+        <label htmlFor="name">Product Name: </label>
         <input
           type="text"
           id="name"

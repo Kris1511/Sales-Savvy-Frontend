@@ -62,7 +62,7 @@ function Update_product() {
         />
         <br />
         <br />
-        <label htmlFor="name">Name: </label>
+        <label htmlFor="name">Product Name: </label>
         <input
           type="text"
           id="name"

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 function Delete_product() {
 
@@ -42,6 +43,9 @@ function Delete_product() {
         <br />
         <button type="submit">Delete Product</button>
       </form>
+      <br />
+      <br />
+      <Link to="/product-management">Go back</Link>
     </div>
   )
 }
