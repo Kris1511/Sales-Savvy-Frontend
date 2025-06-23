@@ -31,11 +31,10 @@ function Signin() {
       if (msg === "admin") {
         setTimeout(() => navigate("/admin_home"), 1500); // Redirect to admin home
       } else if (msg === "customer") {
-        navigate('/customer_home');                      // Redirect to customer home
+        navigate("/customer_home"); // Redirect to customer home
       } else {
-        alert(msg + " logged in");                       // Show error message for invalid credentials
+        alert(msg + " logged in"); // Show error message for invalid credentials
       }
-      
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to submit data");
@@ -54,6 +53,7 @@ function Signin() {
           name="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          required
         />
         <br />
         <br />
@@ -65,6 +65,7 @@ function Signin() {
           name="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <br />
         <br />

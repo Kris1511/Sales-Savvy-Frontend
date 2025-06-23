@@ -34,7 +34,6 @@ function Signup() {
         body: JSON.stringify(data),
       });
 
-      
       const msg = await resp.text();
       alert(msg);
 
@@ -59,8 +58,10 @@ function Signup() {
           name="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          required
         />
-        <br /><br />
+        <br />
+        <br />
         <label for="email">Email:</label>
         <input
           type="email"
@@ -68,8 +69,10 @@ function Signup() {
           name="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
-        <br /><br />
+        <br />
+        <br />
         <label for="password">Password:</label>
         <input
           type="password"
@@ -77,8 +80,10 @@ function Signup() {
           name="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
-        <br /><br />
+        <br />
+        <br />
         <label>Gender:</label>
         <div>
           <input
@@ -88,6 +93,7 @@ function Signup() {
             value="male"
             checked={gender === "male"}
             onChange={(e) => setGender(e.target.value)}
+            required
           />
           <label for="male">Male</label>
           <input
@@ -97,6 +103,7 @@ function Signup() {
             value="female"
             checked={gender === "female"}
             onChange={(e) => setGender(e.target.value)}
+            required
           />
           <label for="female">Female</label>
           <input
@@ -106,10 +113,12 @@ function Signup() {
             value="other"
             checked={gender === "other"}
             onChange={(e) => setGender(e.target.value)}
+            required
           />
           <label for="other">Other</label>
         </div>
-        <br /><br />
+        <br />
+        <br />
         <label for="dob">Date of Birth:</label>
         <input
           type="date"
@@ -118,7 +127,8 @@ function Signup() {
           value={dob}
           onChange={(e) => setDob(e.target.value)}
         />
-        <br /><br />
+        <br />
+        <br />
         <label for="mobile">Mobile:</label>
         <input
           type="tel"
@@ -127,7 +137,8 @@ function Signup() {
           value={mobile}
           onChange={(e) => setMobile(e.target.value)}
         />
-        <br /><br />
+        <br />
+        <br />
         <label for="role">Role:</label>
         Admin
         <input
@@ -145,11 +156,12 @@ function Signup() {
           checked={role === "customer"}
           onChange={(e) => setRole(e.target.value)}
         />
-        <br /><br />
+        <br />
+        <br />
         <button type="submit">Sign Up</button>
       </form>
-      <br/>
-      <br/>
+      <br />
+      <br />
       <Link to="/">Go back</Link>
     </>
   );
