@@ -6,8 +6,13 @@ function Customer_management() {
 
   const [searchCustomer, setSearchCustomer] = useState("");
 
+  const [editCustomer, setEditCustomer] = useState(null);
+
   useEffect(() => {
-    const fetchCustomer = async () => {
+    fetchCustomer();
+  }, []);
+
+      const fetchCustomer = async () => {
       try {
         const response = await axios.get(
           "http://localhost:8080/customers/getAllCustomer"
@@ -21,12 +26,30 @@ function Customer_management() {
       }
     };
 
-    fetchCustomer();
-  }, []);
-
   const filterData = customer.filter((item) => 
     item.username.toLowerCase().includes(searchCustomer.toLocaleLowerCase())
-  )
+  );
+
+  const handleEditClick = (customer) => {
+    setEditCustomer({ ...customer })
+  }
+
+  const handleUpdateChange = (e) => {
+    setEditCustomer({ ...editCustomer, [e.target.name]: e.target.value });
+  };
+
+  const handleUpdateSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(`http://localhost:8080/customers/updateCustomer/${editCustomer.id}`, editCustomer);
+      alert("Customer updated successfully!");
+      setEditCustomer(null); // close form
+      fetchCustomer(); // refresh list
+    } catch (error) {
+      console.error("Error updating customer", error);
+      alert("Update failed");
+    }
+  };
 
   return (
     <div>
@@ -48,6 +71,7 @@ function Customer_management() {
             <th>Email</th>
             <th>Mobile</th>
             <th>Role</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -58,10 +82,49 @@ function Customer_management() {
               <td>{c.email}</td>
               <td>{c.mobile}</td>
               <td>{c.role}</td>
+              <td>
+                <button onClick={() => handleEditClick(c)}>Edit</button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {editCustomer && (
+        <div style={{ marginTop: "20px" }}>
+          <h3>Edit Customer</h3>
+          <form onSubmit={handleUpdateSubmit}>
+            <input
+              type="text"
+              name="username"
+              value={editCustomer.username}
+              onChange={handleUpdateChange}
+              placeholder="Username"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              value={editCustomer.email}
+              onChange={handleUpdateChange}
+              placeholder="Email"
+              required
+            />
+            <input
+              type="text"
+              name="mobile"
+              value={editCustomer.mobile}
+              onChange={handleUpdateChange}
+              placeholder="Mobile"
+              required
+            />
+            <button type="submit">Update</button>
+            <button type="button" onClick={() => setEditCustomer(null)}>
+              Cancel
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
