@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { TailSpin } from "react-loader-spinner";
 
 function Customer_management() {
   const [customer, setCustomer] = useState([]);
@@ -8,31 +10,36 @@ function Customer_management() {
 
   const [editCustomer, setEditCustomer] = useState(null);
 
+  const [loading, setLoading] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const customersPerPage = 10;
+
   useEffect(() => {
     fetchCustomer();
   }, []);
 
-      const fetchCustomer = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:8080/customers/getAllCustomer"
-        );
+  const fetchCustomer = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        "http://localhost:8080/customers/getAllCustomer"
+      );
 
-        setCustomer(response.data);
+      setCustomer(response.data);
 
-        // console.log(response.data);
-      } catch (error) {
-        console.error("Error fetching customer", error);
-      }
-    };
-
-  const filterData = customer.filter((item) => 
-    item.username.toLowerCase().includes(searchCustomer.toLocaleLowerCase())
-  );
+      // console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching customer", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleEditClick = (customer) => {
-    setEditCustomer({ ...customer })
-  }
+    setEditCustomer({ ...customer });
+  };
 
   const handleUpdateChange = (e) => {
     setEditCustomer({ ...editCustomer, [e.target.name]: e.target.value });
@@ -41,7 +48,10 @@ function Customer_management() {
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8080/customers/updateCustomer/${editCustomer.id}`, editCustomer);
+      await axios.put(
+        `http://localhost:8080/customers/updateCustomer/${editCustomer.id}`,
+        editCustomer
+      );
       alert("Customer updated successfully!");
       setEditCustomer(null); // close form
       fetchCustomer(); // refresh list
@@ -50,6 +60,36 @@ function Customer_management() {
       alert("Update failed");
     }
   };
+
+  const handleDeleteClick = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/customers/deleteCustomer/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      const msg = await response.text();
+      alert(msg);
+
+      fetchCustomer();
+    } catch (error) {
+      alert("There is something failed");
+    }
+  };
+
+  const filteredCustomers = customer.filter(
+    (item) =>
+      item.username &&
+      item.username.toLowerCase().includes(searchCustomer.toLowerCase())
+  );
+
+  const indexOfLast = currentPage * customersPerPage;
+  const indexOfFirst = indexOfLast - customersPerPage;
+  const currentCustomers = filteredCustomers.slice(indexOfFirst, indexOfLast);
+
+  const totalPages = Math.ceil(filteredCustomers.length / customersPerPage);
 
   return (
     <div>
@@ -74,25 +114,54 @@ function Customer_management() {
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
-          {filterData.map((c) => (
-            <tr key={c.id}>
-              <td>{c.id}</td>
-              <td>{c.username}</td>
-              <td>{c.email}</td>
-              <td>{c.mobile}</td>
-              <td>{c.role}</td>
-              <td>
-                <button onClick={() => handleEditClick(c)}>Edit</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+        {loading ? (
+          <TailSpin height="50" width="50" color="blue" />
+        ) : (
+          <tbody>
+            {currentCustomers.map((c) => (
+              <tr key={c.id}>
+                <td>{c.id}</td>
+                <td>{c.username}</td>
+                <td>{c.email}</td>
+                <td>{c.mobile}</td>
+                <td>{c.role}</td>
+                <td>
+                  <button onClick={() => handleEditClick(c)}>Edit</button>
+                  <button onClick={() => handleDeleteClick(c.id)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        )}
       </table>
+
+      <div style={{ marginTop: "10px" }}>
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Prev
+        </button>
+
+        <span style={{ margin: "0 10px" }}>
+          Page {currentPage} of {totalPages}
+        </span>
+
+        <button
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
 
       {editCustomer && (
         <div style={{ marginTop: "20px" }}>
-          <h3>Edit Customer</h3>
+          <h3>Edit Customer:</h3>
           <form onSubmit={handleUpdateSubmit}>
             <input
               type="text"
@@ -125,6 +194,10 @@ function Customer_management() {
           </form>
         </div>
       )}
+
+      <br />
+      <br />
+      <Link to="/admin_home">Go back</Link>
     </div>
   );
 }

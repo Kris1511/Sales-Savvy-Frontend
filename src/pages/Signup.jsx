@@ -40,6 +40,14 @@ function Signup() {
       if (msg === "User create successfully") {
         setTimeout(() => navigate("/Signin"), 1500);
       }
+      setUsername("")
+      setEmail("")
+      setPassword("")
+      setGender("")
+      setDob("")
+      setMobile("")
+      setRole("")
+      
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to submit data");

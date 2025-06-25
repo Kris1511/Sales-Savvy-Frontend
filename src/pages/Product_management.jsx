@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 function Product_management() {
   return (
@@ -19,6 +19,9 @@ function Product_management() {
       <br />
       <br />
       <NavLink to="/getAllProduct">Get All Product</NavLink>
+      <br />
+      <br />
+      <Link to="/admin_home">Go back</Link>
     </>
   );
 }

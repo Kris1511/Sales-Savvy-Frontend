@@ -8,10 +8,6 @@ function Delete_product() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = {
-      id
-    }
-
     try {
       const resp = await fetch(`http://localhost:8080/deleteProduct/${id}`, {
         method : "DELETE"
