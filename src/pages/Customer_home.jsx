@@ -14,7 +14,7 @@ function Customer_home() {
         );
 
         setProduct(response.data);
-        console.log(response);
+        // console.log(response);
         
       } catch (err) {
         console.error("Error fetching assets", err);
