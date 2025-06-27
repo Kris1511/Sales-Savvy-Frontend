@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Add_to_cart({ product, onAddToCart }) {
+
+  const [qty, setQty] = useState(1);
+
+  if (!product) return null;
+  
+  const inc = () => setQty((q) => q + 1);
+  const dec = () => setQty((q) => Math.max(1, q - 1));
+
   return (
     <article className="product-card">
       <figure className="product-img-wrap">
@@ -16,6 +24,12 @@ function Add_to_cart({ product, onAddToCart }) {
         <h3 className="product-title">{product.name}</h3>
         <p className="product-price">₹{product.price}</p>
         <p className="product-desc">{product.description}</p>
+
+        <div className="qty-control">
+          <button onClick={dec} aria-label="decrease quantity">-</button>
+          <span>{ qty }</span>
+          <button onClick={inc} aria-label="increase quantity">+</button>
+        </div>
 
         <button
           className="btn btn-primary btn-sm"
