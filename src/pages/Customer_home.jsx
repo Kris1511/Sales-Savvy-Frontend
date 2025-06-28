@@ -4,54 +4,80 @@ import ProductCart from "../pages/component/ProductCart";
 
 function Customer_home() {
   const [product, setProduct] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   // Fetch product on load
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:8080/getAllProduct"
-        );
-
-        setProduct(response.data);
-        // console.log(response);
-        
-      } catch (err) {
-        console.error("Error fetching assets", err);
-      }
-    };
-
     fetchProduct();
   }, []);
 
-  const handleAddToCart = async () => {
+  const fetchProduct = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/getAllProduct");
 
-    
+      setProduct(response.data);
+      // console.log(response);
+    } catch (err) {
+      console.error("Error fetching assets", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  }
+  const handleAddToCart = async (product, qty = 1) => {
+
+    const username = localStorage.getItem("username");
+    if (!username) return alert("Please sign in first");
+
+    try {
+      const response = await fetch("http://localhost:8080/addToCart", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          productId: product.id,
+          username,
+          quantity: qty,
+        }),
+      });
+
+      if (response.ok) {
+        alert(`Added \ "${product.name}\" (x${qty}) to cart`);
+      } else {
+        alert("Could not add to cart");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Could not add to cart");
+    }
+  };
 
   return (
     <div>
       <h1>Customer Home: </h1>
-       <h2 className="text-center mb-6">Available Products</h2>
+      <h2 className="text-center mb-6">Available Products</h2>
 
-          {product.map((p) => (
+      {/* initial loading */}
+      {loading && <p className="text-center">Loading...</p>}
+      {error && <p className="text-center">{error}</p>}
 
-            <ProductCart 
-            key={p.id}
-            product = {p}
-            onAddToCart = {handleAddToCart}
-            />
-            // <tr key={p.id}>
-            //   <td>{p.id}</td>
-            //   <td>{p.photo}</td>
-            //   <td>{p.name}</td>
-            //   <td>{p.description}</td>
-            //   <td>{p.price}</td>
-            //   <td>{p.category}</td>
-            // </tr>
-          ))}
-
+      {!loading &&
+        !error &&
+        (product.length ? (
+          <div className="product-grid">
+            {product.map((p) => (
+              <ProductCart
+                key={p.id}
+                product={p}
+                onAddToCart={handleAddToCart}
+              />
+            ))}
+          </div>
+        ) : (
+          <p className="text-center">No product available</p>
+        ))}
     </div>
   );
 }

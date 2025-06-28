@@ -28,10 +28,9 @@ function Signin() {
       const msg = await resp.text();
       alert(msg);
 
-      if (msg === "admin") {
-        setTimeout(() => navigate("/admin_home"), 1500); // Redirect to admin home
-      } else if (msg === "customer") {
-        navigate("/customer_home"); // Redirect to customer home
+      if (msg === "admin" || msg === "customer") {
+        localStorage.setItem("username", username); // Username is already known from input
+        navigate(`/${msg}_home`);
       } else {
         alert(msg + " logged in"); // Show error message for invalid credentials
       }

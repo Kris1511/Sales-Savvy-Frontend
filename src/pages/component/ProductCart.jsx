@@ -7,6 +7,7 @@ function Add_to_cart({ product, onAddToCart }) {
   if (!product) return null;
   
   const inc = () => setQty((q) => q + 1);
+  
   const dec = () => setQty((q) => Math.max(1, q - 1));
 
   return (
@@ -33,7 +34,7 @@ function Add_to_cart({ product, onAddToCart }) {
 
         <button
           className="btn btn-primary btn-sm"
-          onClick={() => onAddToCart(product)}
+          onClick={() => onAddToCart(product, qty)}
         >
           Add to cart
         </button>
