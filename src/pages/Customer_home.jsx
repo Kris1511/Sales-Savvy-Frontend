@@ -7,6 +7,7 @@ function Customer_home() {
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [search, setSearch] = useState("");
 
   const navigate = useNavigate();
 
@@ -29,7 +30,6 @@ function Customer_home() {
   };
 
   const handleAddToCart = async (product, qty = 1) => {
-
     const username = localStorage.getItem("username");
     if (!username) return alert("Please sign in first");
 
@@ -57,38 +57,57 @@ function Customer_home() {
     }
   };
 
-  return (
-    <div>
-      <h1>Customer Home: </h1>
-      <h2 className="text-center mb-6">Available Products</h2>
+  // filter the product
+  const filtered = product.filter((p) =>
+    (p.name + p.description).toLowerCase().includes(search.toLowerCase())
+  );
 
-      <button
+  return (
+    <section className="customer-home">
+      <header className="shop-header">
+        <h1 className="shop-title">Welcome to Sales Savvy</h1>
+        <p className="shop-tagline">
+          Discover curated deals, fresh arrivals and lightning-fast delivery.
+          Scroll down to start shopping!
+        </p>
+
+        <button
           className="btn btn-primary go-to-cart"
           onClick={() => navigate("/cart")}
         >
           Go to Cart 🛒
         </button>
 
-      {/* initial loading */}
-      {loading && <p className="text-center">Loading...</p>}
-      {error && <p className="text-center">{error}</p>}
+        <input
+          className="shop-search"
+          type="text"
+          placeholder="Search products…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </header>
 
-      {!loading &&
-        !error &&
-        (product.length ? (
-          <div className="product-grid">
-            {product.map((p) => (
-              <ProductCart
-                key={p.id}
-                product={p}
-                onAddToCart={handleAddToCart}
-              />
-            ))}
-          </div>
-        ) : (
-          <p className="text-center">No product available</p>
-        ))}
-    </div>
+      <div className="container">
+        {loading && <p className="text-center">Loading…</p>}
+        {error && <p className="text-center text-danger">{error}</p>}
+
+        {!loading &&
+          !error &&
+          (filtered.length ? (
+            <div className="products-grid">
+              {filtered.map((p) => (
+                <ProductCart
+                  key={p.id}
+                  product={p}
+                  onAddToCart={handleAddToCart}
+                />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center">No products match your search.</p>
+          ))}
+      </div>
+    </section>
   );
 }
 

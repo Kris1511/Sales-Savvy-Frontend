@@ -12,6 +12,7 @@ import Search_product from "./pages/product/Search_product";
 import Delete_product from "./pages/product/Delete_product";
 import Show_product from "./pages/productDetails/Show_product";
 import Get_all_product from "./pages/productDetails/Get_all_product"
+import AddToCart from "./pages/CartPage/AddToCart";
 
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
 
           {/* show product */}
           <Route path="/showProduct" element= { <Show_product /> } />
+
+          {/* Add to cart page */}
+          <Route path="/cart" element = { <AddToCart /> } />
         </Routes>
       </Router>
     </>
