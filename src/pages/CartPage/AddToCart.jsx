@@ -9,9 +9,14 @@ function AddToCart() {
   const [error, setErr] = useState("");
 
   const username = localStorage.getItem("username");
+  
   const navigate = useNavigate();
 
   useEffect(() => {
+
+    const cached = localStorage.getItem("cart_items");
+    if (cached) setItems(JSON.parse(cached));
+
     if (!username) return;
     (async () => {
       try {
@@ -22,6 +27,8 @@ function AddToCart() {
         console.log("Cart items:", data);
 
         setItems(data);
+
+        localStorage.setItem("cart_items", JSON.stringify(data));
       } catch (e) {
         setErr(e.message);
       } finally {
@@ -33,7 +40,7 @@ function AddToCart() {
   const total = items.reduce((s, it) => s + it.product.price * it.quantity, 0);
 
   // payment handler
-    async function payNow() {
+  async function payNow() {
     if (!items.length) return;
 
     // 1) load Razorpay SDK
@@ -44,19 +51,19 @@ function AddToCart() {
     const res = await fetch("http://localhost:8080/payment/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, amount: total * 100 }) // paise
+      body: JSON.stringify({ username, amount: total * 100 }), // paise
     });
     if (!res.ok) return alert(await res.text());
     const data = await res.json(); // { key, orderId, amount }
 
     // 3) open Razorpay checkout
     const rzp = new window.Razorpay({
-      key:        data.key,
-      amount:     data.amount,
-      currency:   "INR",
-      name:       "Sales Savvy",
-      description:"Order Payment",
-      order_id:   data.orderId,
+      key: data.key,
+      amount: data.amount,
+      currency: "INR",
+      name: "Sales Savvy",
+      description: "Order Payment",
+      order_id: data.orderId,
       handler: async (resp) => {
         /* 4) verify payment */
         const vr = await fetch("http://localhost:8080/payment/verify", {
@@ -64,24 +71,23 @@ function AddToCart() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             username,
-            orderId:   resp.razorpay_order_id,
+            orderId: resp.razorpay_order_id,
             paymentId: resp.razorpay_payment_id,
-            signature: resp.razorpay_signature
-          })
+            signature: resp.razorpay_signature,
+          }),
         });
         if (!vr.ok) return alert(await vr.text());
         const orderId = await vr.text(); // we returned orderId
         navigate(`/order-summary/${orderId}`);
       },
       prefill: {
-        name:  username,
+        name: username,
         email: localStorage.getItem("email") || "",
       },
       theme: { color: "#3399cc" },
     });
     rzp.open();
   }
-  
 
   return (
     <div className="container cart-view">
@@ -95,44 +101,49 @@ function AddToCart() {
       )}
 
       {!loading && !error && (
-  <>
-    {items.length > 0 ? (
-      <>
-        <div className="products-grid">
-          {items.map((p) => (
-            <div key={p.product.id} className="product-card">
-              <img
-                src={p.product.photo || "/placeholder.png"}
-                alt={p.product.name}
-                loading="lazy"
-                onError={(e) => (e.target.src = "/placeholder.png")}
-              />
-              <h4>{p.product.name}</h4>
-              <p>{p.product.description}</p>
-              <p>{p.product.category}</p>
-              <p>Quantity: {p.quantity}</p>
-              <p>Price: ₹{p.product.price}</p>
-              <p>Subtotal: ₹{p.quantity * p.product.price}</p>
-            </div>
-          ))}
-        </div>
+        <>
+          {items.length > 0 ? (
+            <>
+              <div className="products-grid">
+                {items.map((p) => (
+                  <div key={p.product.id} className="product-card">
+                    <img
+                      src={p.product.photo || "/placeholder.png"}
+                      alt={p.product.name}
+                      loading="lazy"
+                      onError={(e) => (e.target.src = "/placeholder.png")}
+                    />
+                    <h4>{p.product.name}</h4>
+                    <p>{p.product.description}</p>
+                    <p>{p.product.category}</p>
+                    <p>Quantity: {p.quantity}</p>
+                    <p>Price: ₹{p.product.price}</p>
+                    <p>Subtotal: ₹{p.quantity * p.product.price}</p>
+                  </div>
+                ))}
+              </div>
 
-        <article className="cart-summary mt-4">
-          <h3>Total: ₹{items.reduce((s, it) => s + it.product.price * it.quantity, 0)}</h3>
-          <button className="btn btn-primary" onClick={payNow}>
-            Pay with Razorpay
-          </button>
-        </article>
-      </>
-    ) : (
-      <p className="text-center">No products available.</p>
-    )}
-    <br />
-      <br />
-      <Link to="/customer_home">Go back</Link>
-  </>
-)}
-
+              <article className="cart-summary mt-4">
+                <h3>
+                  Total: ₹
+                  {items.reduce(
+                    (s, it) => s + it.product.price * it.quantity,
+                    0
+                  )}
+                </h3>
+                <button className="btn btn-primary" onClick={payNow}>
+                  Pay with Razorpay
+                </button>
+              </article>
+            </>
+          ) : (
+            <p className="text-center">No products available.</p>
+          )}
+          <br />
+          <br />
+          <Link to="/customer_home">Go back</Link>
+        </>
+      )}
     </div>
   );
 }

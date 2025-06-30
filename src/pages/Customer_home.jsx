@@ -62,6 +62,16 @@ function Customer_home() {
     (p.name + p.description).toLowerCase().includes(search.toLowerCase())
   );
 
+  // logout fun
+  const handleLogout = () => {
+    localStorage.removeItem("username");
+    localStorage.removeItem("email");
+    localStorage.removeItem("cart_items");
+    // ...remove other items if stored
+
+    navigate("/Signin"); // redirect to login page
+  };
+
   return (
     <section className="customer-home">
       <header className="shop-header">
@@ -70,6 +80,12 @@ function Customer_home() {
           Discover curated deals, fresh arrivals and lightning-fast delivery.
           Scroll down to start shopping!
         </p>
+
+        <div className="nav-item">
+          <button className="nav-link btn btn-link" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
 
         <button
           className="btn btn-primary go-to-cart"
