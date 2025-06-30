@@ -1,7 +1,7 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Welcome from "./pages/Welcome";
 import Signup from "./pages/Signup";
-import Signin from "./pages/signin";
+import Signin from "./pages/Signin";
 import Admin_home from "./pages/Admin_home";
 import Customer_home from "./pages/Customer_home";
 import Product_management from "./pages/Product_management";
@@ -13,6 +13,7 @@ import Delete_product from "./pages/product/Delete_product";
 import Show_product from "./pages/productDetails/Show_product";
 import Get_all_product from "./pages/productDetails/Get_all_product"
 import AddToCart from "./pages/CartPage/AddToCart";
+import OrderSummary from "./pages/OrderPage/OrderSummary";
 
 function App() {
   return (
@@ -41,6 +42,9 @@ function App() {
 
           {/* Add to cart page */}
           <Route path="/cart" element = { <AddToCart /> } />
+
+          {/* show payment details */}
+          <Route path="/order-summary/:orderId" element = { <OrderSummary /> } />
         </Routes>
       </Router>
     </>

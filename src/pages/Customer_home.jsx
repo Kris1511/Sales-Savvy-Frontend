@@ -104,7 +104,7 @@ function Customer_home() {
               ))}
             </div>
           ) : (
-            <p className="text-center">No products match your search.</p>
+            <p className="text-center">No products available.</p>
           ))}
       </div>
     </section>
