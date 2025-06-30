@@ -8,13 +8,15 @@ function Welcome() {
   return (
     <>
      <div className="welcome-page">
-      <div className="welcome-card">
-        <h2 className="welcome-title">Welcome to Sales Savvy</h2>
-        <NavLink to="/signup" className="btn btn-primary">
-          <span className="cta-text">Create account</span>
-        </NavLink>
-        <br /><br />
-        <NavLink to="/signin" className="btn btn-accent">Sign&nbsp;in</NavLink>
+      <div className="welcome-content">
+        <h1 className="brand-title">Welcome to Sales Savvy</h1>
+        <p className="brand-tagline">Your trusted e-commerce dashboard platform</p>
+        <div className="welcome-buttons">
+          <NavLink to="/signup" className="btn btn-primary">
+            <span className="cta-text">Create account</span>
+          </NavLink>
+          <NavLink to="/signin" className="btn btn-outline">Sign&nbsp;in</NavLink>
+        </div>
       </div>
     </div>
     </>

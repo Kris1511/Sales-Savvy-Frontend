@@ -48,75 +48,78 @@ function Update_product() {
 
 
   return (
-    <div>
-      <h2>Update product: </h2>
+    <div className="update-product-container">
+      <h2 className="form-title">✏️ Update Product</h2>
 
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="id">Id: </label>
-        <input
-          type="text"
-          id="id"
-          name="id"
-          value={id}
-          onChange={(e) => setID(e.target.value)}
-        />
-        <br />
-        <br />
-        <label htmlFor="name">Product Name: </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <br />
-        <br />
-        <label htmlFor="description">Description: </label>
-        <input
-          type="text"
-          id="description"
-          name="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <br />
-        <br />
-        <label htmlFor="price">Price: </label>
-        <input
-          type="text"
-          id="price"
-          name="price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
-        <br />
-        <br />
-        <label htmlFor="photo">Photo: </label>
-        <input
-          type="text"
-          id="photo"
-          name="photo"
-          value={photo}
-          onChange={(e) => setPhoto(e.target.value)}
-        />
-        <br />
-        <br />
-        <label htmlFor="category">Category: </label>
-        <input
-          type="text"
-          id="category"
-          name="category"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        />
-        <br />
-        <br />
-        <button type="submit">Update Product</button>
+      <form className="product-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="id">Product ID:</label>
+          <input
+            type="text"
+            id="id"
+            value={id}
+            onChange={(e) => setID(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="name">Product Name:</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="description">Description:</label>
+          <input
+            type="text"
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="price">Price:</label>
+          <input
+            type="text"
+            id="price"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="photo">Photo URL:</label>
+          <input
+            type="text"
+            id="photo"
+            value={photo}
+            onChange={(e) => setPhoto(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="category">Category:</label>
+          <input
+            type="text"
+            id="category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          />
+        </div>
+
+        <button className="submit-btn" type="submit">Update Product</button>
       </form>
-      <br />
-      <br />
-      <Link to="/product-management">Go back</Link>
+
+      <div className="back-link">
+        <Link to="/product-management">← Go back</Link>
+      </div>
     </div>
   );
 }

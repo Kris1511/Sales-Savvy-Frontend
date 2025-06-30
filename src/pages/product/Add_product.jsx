@@ -44,65 +44,69 @@ function Add_product() {
   };
 
   return (
-    <div>
-      <h3>Add New Product: </h3>
+    <div className="add-product-container">
+      <h2 className="form-title">📦 Add New Product</h2>
 
-      <form action="" onSubmit={handleSubmit}>
-        <label htmlFor="name">Product Name: </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <br />
-        <br />
-        <label htmlFor="description">Description: </label>
-        <input
-          type="text"
-          id="description"
-          name="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <br />
-        <br />
-        <label htmlFor="price">price: </label>
-        <input
-          type="text"
-          id="price"
-          name="price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
-        <br />
-        <br />
-        <label htmlFor="photo">Photo: </label>
-        <input
-          type="text"
-          id="photo"
-          name="photo"
-          value={photo}
-          onChange={(e) => setPhoto(e.target.value)}
-        />
-        <br />
-        <br />
-        <label htmlFor="category">Category: </label>
-        <input
-          type="text"
-          id="category"
-          name="category"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        />
-        <br />
-        <br />
-        <button type="submit">Add Product</button>
+      <form className="product-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="name">Product Name:</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="description">Description:</label>
+          <input
+            type="text"
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="price">Price:</label>
+          <input
+            type="text"
+            id="price"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="photo">Photo URL:</label>
+          <input
+            type="text"
+            id="photo"
+            value={photo}
+            onChange={(e) => setPhoto(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="category">Category:</label>
+          <input
+            type="text"
+            id="category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          />
+        </div>
+
+        <button className="submit-btn" type="submit">Add Product</button>
       </form>
-      <br />
-      <br />
-      <Link to="/product-management">Go back</Link>
+
+      <div className="back-link">
+        <Link to="/product-management">← Go back</Link>
+      </div>
     </div>
   );
 }

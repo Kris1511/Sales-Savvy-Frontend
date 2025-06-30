@@ -92,75 +92,89 @@ function Customer_management() {
   const totalPages = Math.ceil(filteredCustomers.length / customersPerPage);
 
   return (
-    <div>
-      <h2>Customer details:</h2>
+    <div className="customer-management">
+      <h2 className="title">👥 Customer Details</h2>
 
       <input
+        className="search-input"
         type="text"
         placeholder="Search by customer name"
         value={searchCustomer}
         onChange={(e) => setSearchCustomer(e.target.value)}
-        style={{ marginBottom: "10px", padding: "5px", width: "300px" }}
       />
 
-      <table border="1" cellPadding="10" style={{ borderCollapse: "collapse" }}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Mobile</th>
-            <th>Role</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        {loading ? (
-          <TailSpin height="50" width="50" color="blue" />
-        ) : (
-          <tbody>
-            {currentCustomers.map((c) => (
-              <tr key={c.id}>
-                <td>{c.id}</td>
-                <td>{c.username}</td>
-                <td>{c.email}</td>
-                <td>{c.mobile}</td>
-                <td>{c.role}</td>
-                <td>
-                  <button onClick={() => handleEditClick(c)}>Edit</button>
-                  <button onClick={() => handleDeleteClick(c.id)}>
-                    Delete
-                  </button>
+      <div className="table-wrapper">
+        <table className="customer-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Mobile</th>
+              <th>Role</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          {loading ? (
+            <tbody>
+              <tr>
+                <td colSpan="6" className="loader-cell">
+                  <TailSpin height="40" width="40" color="blue" />
                 </td>
               </tr>
-            ))}
-          </tbody>
-        )}
-      </table>
+            </tbody>
+          ) : (
+            <tbody>
+              {currentCustomers.map((c) => (
+                <tr key={c.id}>
+                  <td>{c.id}</td>
+                  <td>{c.username}</td>
+                  <td>{c.email}</td>
+                  <td>{c.mobile}</td>
+                  <td>{c.role}</td>
+                  <td>
+                    <button
+                      className="btn-edit"
+                      onClick={() => handleEditClick(c)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="btn-delete"
+                      onClick={() => handleDeleteClick(c.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          )}
+        </table>
+      </div>
 
-      <div style={{ marginTop: "10px" }}>
+      <div className="pagination">
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
         >
-          Prev
+          ⬅ Prev
         </button>
-
-        <span style={{ margin: "0 10px" }}>
+        <span>
           Page {currentPage} of {totalPages}
         </span>
-
         <button
           onClick={() =>
             setCurrentPage((prev) => Math.min(prev + 1, totalPages))
           }
           disabled={currentPage === totalPages}
         >
-          Next
+          Next ➡
         </button>
       </div>
 
       {editCustomer && (
-        <div style={{ marginTop: "20px" }}>
+        <div className="edit-form">
           <h3>Edit Customer:</h3>
           <form onSubmit={handleUpdateSubmit}>
             <input
@@ -187,17 +201,23 @@ function Customer_management() {
               placeholder="Mobile"
               required
             />
-            <button type="submit">Update</button>
-            <button type="button" onClick={() => setEditCustomer(null)}>
+            <button type="submit" className="btn-save">
+              Update
+            </button>
+            <button
+              type="button"
+              className="btn-cancel"
+              onClick={() => setEditCustomer(null)}
+            >
               Cancel
             </button>
           </form>
         </div>
       )}
 
-      <br />
-      <br />
-      <Link to="/admin_home">Go back</Link>
+      <div className="back-link">
+        <Link to="/admin_home">← Go back</Link>
+      </div>
     </div>
   );
 }

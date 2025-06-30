@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Get_all_product() {
   const [data, setData] = useState([]);
@@ -47,55 +48,51 @@ function Get_all_product() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>All Products:</h2>
+    <div className="get-all-products">
+      <h2 className="title">📦 All Products</h2>
 
       <input
+        className="search-box"
         type="text"
         placeholder="Search by product name"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        style={{ marginBottom: "10px", padding: "5px", width: "300px" }}
       />
 
-      <table
-        border="1"
-        cellPadding="10"
-        cellSpacing="0"
-        style={{ width: "100%", borderCollapse: "collapse" }}
-      >
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Product name</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Photo</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentItems.map((value) => (
-            <tr key={value.id}>
-              <td>{value.id}</td>
-              <td>{value.name}</td>
-              <td>{value.description}</td>
-              <td>{value.category}</td>
-              <td>
-                {value.photo ? (
-                  <img src={value.photo} alt={value.name} width="80" />
-                ) : (
-                  "No Image"
-                )}
-              </td>
-              <td>{value.price}</td>
+      <div className="table-wrapper">
+        <table className="product-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Product name</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Photo</th>
+              <th>Price</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {currentItems.map((value) => (
+              <tr key={value.id}>
+                <td>{value.id}</td>
+                <td>{value.name}</td>
+                <td>{value.description}</td>
+                <td>{value.category}</td>
+                <td>
+                  {value.photo ? (
+                    <img src={value.photo} alt={value.name} width="70" />
+                  ) : (
+                    "No Image"
+                  )}
+                </td>
+                <td>₹{value.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-      {/* Pagination controls */}
-      <div style={{ marginTop: "10px" }}>
+      <div className="pagination">
         <button
           onClick={() => goToPage(currentPage - 1)}
           disabled={currentPage === 1}
@@ -107,10 +104,7 @@ function Get_all_product() {
           <button
             key={i + 1}
             onClick={() => goToPage(i + 1)}
-            style={{
-              margin: "0 5px",
-              fontWeight: currentPage === i + 1 ? "bold" : "normal",
-            }}
+            className={currentPage === i + 1 ? "active-page" : ""}
           >
             {i + 1}
           </button>
@@ -122,6 +116,9 @@ function Get_all_product() {
         >
           Next ➡
         </button>
+      </div>
+      <div className="back-link">
+        <Link to="/product-management">← Go back</Link>
       </div>
     </div>
   );

@@ -41,23 +41,30 @@ function Search_product() {
 
   return (
     <>
-      <h2>Search Product: </h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="searchId">Search Product Name:</label>
-        <input
-          type="text"
-          id="searchId"
-          name="searchID"
-          value={searchId}
-          onChange={(e) => setSearchId(e.target.value)}
-        />
-        <br />
-        <br />
-        <button type="submit">Search Product</button>
+      <div className="search-product-container">
+      <h2 className="form-title">🔍 Search Product</h2>
+
+      <form className="search-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="searchId">Product Name:</label>
+          <input
+            type="text"
+            id="searchId"
+            value={searchId}
+            onChange={(e) => setSearchId(e.target.value)}
+            required
+          />
+        </div>
+
+        <button type="submit" className="submit-btn">
+          Search Product
+        </button>
       </form>
-      <br />
-      <br />
-      <Link to="/product-management">Go back</Link>
+
+      <div className="back-link">
+        <Link to="/product-management">← Go back</Link>
+      </div>
+    </div>
     </>
   );
 }

@@ -2,6 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import loadRazorpay from "../Utils/LoadRzp";
+import '../../Style/root.css';
+import '../../Style/layout.css';
+import '../../Style/component.css';
 
 function AddToCart() {
   const [items, setItems] = useState([]);
@@ -90,61 +93,112 @@ function AddToCart() {
   }
 
   return (
-    <div className="container cart-view">
-      <h2 className="text-center">🛒 Your Cart</h2>
+    // <div className="container cart-view">
+    //   <h2 className="text-center">🛒 Your Cart</h2>
 
-      {loading && <p className="text-center">Loading…</p>}
-      {error && <p className="text-center text-danger">{error}</p>}
+    //   {loading && <p className="text-center">Loading…</p>}
+    //   {error && <p className="text-center text-danger">{error}</p>}
 
-      {!loading && !error && items.length === 0 && (
-        <p className="text-center">Your cart is empty.</p>
-      )}
+    //   {!loading && !error && items.length === 0 && (
+    //     <p className="text-center">Your cart is empty.</p>
+    //   )}
 
-      {!loading && !error && (
-        <>
-          {items.length > 0 ? (
-            <>
-              <div className="products-grid">
-                {items.map((p) => (
-                  <div key={p.product.id} className="product-card">
-                    <img
-                      src={p.product.photo || "/placeholder.png"}
-                      alt={p.product.name}
-                      loading="lazy"
-                      onError={(e) => (e.target.src = "/placeholder.png")}
-                    />
-                    <h4>{p.product.name}</h4>
-                    <p>{p.product.description}</p>
-                    <p>{p.product.category}</p>
-                    <p>Quantity: {p.quantity}</p>
-                    <p>Price: ₹{p.product.price}</p>
-                    <p>Subtotal: ₹{p.quantity * p.product.price}</p>
-                  </div>
-                ))}
-              </div>
+    //   {!loading && !error && (
+    //     <>
+    //       {items.length > 0 ? (
+    //         <>
+    //           <div className="products-grid">
+    //             {items.map((p) => (
+    //               <div key={p.product.id} className="product-card">
+    //                 <img
+    //                   src={p.product.photo || "/placeholder.png"}
+    //                   alt={p.product.name}
+    //                   loading="lazy"
+    //                   onError={(e) => (e.target.src = "/placeholder.png")}
+    //                 />
+    //                 <h4>{p.product.name}</h4>
+    //                 <p>{p.product.description}</p>
+    //                 <p>{p.product.category}</p>
+    //                 <p>Quantity: {p.quantity}</p>
+    //                 <p>Price: ₹{p.product.price}</p>
+    //                 <p>Subtotal: ₹{p.quantity * p.product.price}</p>
+    //               </div>
+    //             ))}
+    //           </div>
 
-              <article className="cart-summary mt-4">
-                <h3>
-                  Total: ₹
-                  {items.reduce(
-                    (s, it) => s + it.product.price * it.quantity,
-                    0
-                  )}
-                </h3>
-                <button className="btn btn-primary" onClick={payNow}>
-                  Pay with Razorpay
-                </button>
-              </article>
-            </>
-          ) : (
-            <p className="text-center">No products available.</p>
-          )}
-          <br />
-          <br />
-          <Link to="/customer_home">Go back</Link>
-        </>
-      )}
-    </div>
+    //           <article className="cart-summary mt-4">
+    //             <h3>
+    //               Total: ₹
+    //               {items.reduce(
+    //                 (s, it) => s + it.product.price * it.quantity,
+    //                 0
+    //               )}
+    //             </h3>
+    //             <button className="btn btn-primary" onClick={payNow}>
+    //               Pay with Razorpay
+    //             </button>
+    //           </article>
+    //         </>
+    //       ) : (
+    //         <p className="text-center">No products available.</p>
+    //       )}
+    //       <br />
+    //       <br />
+    //       <Link to="/customer_home">Go back</Link>
+    //     </>
+    //   )}
+    // </div>
+
+    <div className="cart-container">
+  <h2 className="cart-title">🛒 Your Cart</h2>
+
+  {loading && <p className="cart-message">Loading…</p>}
+  {error && <p className="cart-message error">{error}</p>}
+
+  {!loading && !error && items.length === 0 && (
+    <p className="cart-message">Your cart is empty.</p>
+  )}
+
+  {!loading && !error && items.length > 0 && (
+    <>
+      <div className="cart-grid">
+        {items.map((p) => (
+          <div key={p.product.id} className="cart-item-card">
+            <img
+              src={p.product.photo || "/placeholder.png"}
+              alt={p.product.name}
+              loading="lazy"
+              onError={(e) => (e.target.src = "/placeholder.png")}
+            />
+            <h4 className="item-name">{p.product.name}</h4>
+            {/* <p className="item-description">{p.product.description}</p> */}
+            <p className="item-category">Category: {p.product.category}</p>
+            <p className="item-qty">Quantity: {p.quantity}</p>
+            <p className="item-price">Price: ₹{p.product.price}</p>
+            <p className="item-subtotal">
+              Subtotal: ₹{p.quantity * p.product.price}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div className="cart-summary-box">
+        <h3>
+          Total product price: ₹
+          {items.reduce((s, it) => s + it.product.price * it.quantity, 0)}
+        </h3>
+        <button className="cart-pay-btn" onClick={payNow}>
+          Pay with Razorpay
+        </button>
+      </div>
+
+      <div className="cart-back-link">
+        <Link to="/customer_home">← Go back</Link>
+      </div>
+    </>
+  )}
+</div>
+
   );
 }
 

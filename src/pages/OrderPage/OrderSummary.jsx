@@ -16,7 +16,6 @@ function OrderSummary() {
         if (data.error) throw new Error("Order not found");
         setData(data);
         console.log(data);
-        
       } catch (e) {
         setErr(e.message);
       }
@@ -27,17 +26,19 @@ function OrderSummary() {
   if (!data) return <p className="text-center mt-6">Loading…</p>;
 
   return (
-    <div className="container mt-6">
-      <h2>✅ Payment Successful!</h2>
-      <p>
-        <b>Order&nbsp;ID:</b> {data.orderId}
+    <div className="order-success">
+      <h2 className="success-title">✅ Payment Successful!</h2>
+
+      <p className="order-info">
+        <b>Order ID:</b> {data.orderId}
       </p>
-      <p>
+      <p className="order-info">
         <b>Status:</b> {data.status}
       </p>
 
-      <h4 className="mt-4">Items</h4>
-      <table className="table">
+      <h4 className="items-heading">🧾 Items</h4>
+
+      <table className="items-table">
         <thead>
           <tr>
             <th>Name</th>
@@ -58,10 +59,10 @@ function OrderSummary() {
         </tbody>
       </table>
 
-      <h3 className="text-right">Total Paid: ₹{data.total}</h3>
+      <h3 className="total-paid">Total Paid: ₹{data.total}</h3>
 
-      <Link to="/customer_home" className="btn btn-primary mt-3">
-        Continue Shopping
+      <Link to="/customer_home" className="btn-continue">
+        Continue Shopping 🛍️
       </Link>
     </div>
   );

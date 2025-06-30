@@ -23,25 +23,30 @@ function Delete_product() {
   }
 
   return (
-    <div>
-      <h3>Delete Product: </h3>
+    <div className="delete-product-container">
+      <h3 className="form-title">🗑️ Delete Product</h3>
 
-      <form action="" onSubmit={handleSubmit}>
-        <label htmlFor="id">Id: </label>
-        <input
-          type="text"
-          id="id"
-          name="id"
-          value={id}
-          onChange={(e) => setId(e.target.value)}
-        />
-        <br />
-        <br />
-        <button type="submit">Delete Product</button>
+      <form className="delete-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="id">Product ID:</label>
+          <input
+            type="text"
+            id="id"
+            name="id"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+            required
+          />
+        </div>
+
+        <button className="submit-btn danger-btn" type="submit">
+          Delete Product
+        </button>
       </form>
-      <br />
-      <br />
-      <Link to="/product-management">Go back</Link>
+
+      <div className="back-link">
+        <Link to="/product-management">← Go back</Link>
+      </div>
     </div>
   )
 }

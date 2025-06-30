@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCart from "../pages/component/ProductCart";
 import { useNavigate } from "react-router-dom";
+import '../Style/root.css';
+import '../Style/layout.css';
+import '../Style/component.css';
 
 function Customer_home() {
   const [product, setProduct] = useState([]);
@@ -104,24 +107,28 @@ function Customer_home() {
       </header>
 
       <div className="container">
-        {loading && <p className="text-center">Loading…</p>}
-        {error && <p className="text-center text-danger">{error}</p>}
+        <div className="products-grid">
+          <div className="product-card-wrap">
+            {loading && <p className="text-center">Loading…</p>}
+            {error && <p className="text-center text-danger">{error}</p>}
 
-        {!loading &&
-          !error &&
-          (filtered.length ? (
-            <div className="products-grid">
-              {filtered.map((p) => (
-                <ProductCart
-                  key={p.id}
-                  product={p}
-                  onAddToCart={handleAddToCart}
-                />
+            {!loading &&
+              !error &&
+              (filtered.length ? (
+                <div className="products-grid">
+                  {filtered.map((p) => (
+                    <ProductCart
+                      key={p.id}
+                      product={p}
+                      onAddToCart={handleAddToCart}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <p className="text-center">No products available.</p>
               ))}
-            </div>
-          ) : (
-            <p className="text-center">No products available.</p>
-          ))}
+          </div>
+        </div>
       </div>
     </section>
   );

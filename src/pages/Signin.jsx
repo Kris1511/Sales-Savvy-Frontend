@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import '../Style/root.css';
+import '../Style/layout.css';
+import '../Style/component.css';
 
 function Signin() {
   const [username, setUsername] = useState("");
@@ -42,37 +45,34 @@ function Signin() {
 
   return (
     <>
-      <h2>Sign in below:</h2>
-      <br />
-      <form onSubmit={handleSubmit}>
-        <label for="username">Username: </label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-        <br />
-        <br />
+      <div className="signin-page">
+      <div className="form-card">
+        <h2 className="form-title">Sign in below</h2>
+        <form onSubmit={handleSubmit} className="form">
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
 
-        <label for="password">Password: </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <br />
-        <br />
-        <button type="submit">Sign In</button>
-      </form>
-      <br />
-      <br />
-      <Link to="/">Go back</Link>
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <button type="submit" className="btn btn-primary">Sign In</button>
+        </form>
+
+        <Link to="/" className="back-link">← Go back</Link>
+      </div>
+    </div>
     </>
   );
 }

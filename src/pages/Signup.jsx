@@ -56,99 +56,107 @@ function Signup() {
 
   return (
     <>
-      <h2>Sign up below:</h2>
+      <h2 className="signup-title">Sign up below:</h2>
 
-      <form onSubmit={handleSubmit}>
-        <label for="username">Username:</label>
+<form className="signup-form" onSubmit={handleSubmit}>
+  <div className="form-group">
+    <label htmlFor="username">Username:</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      value={username}
+      onChange={(e) => setUsername(e.target.value)}
+      required
+    />
+  </div>
+
+  <div className="form-group">
+    <label htmlFor="email">Email:</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+      required
+    />
+  </div>
+
+  <div className="form-group">
+    <label htmlFor="password">Password:</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      required
+    />
+  </div>
+
+  <div className="form-group">
+    <label>Gender:</label>
+    <div className="radio-group">
+      <label>
         <input
-          type="text"
-          id="username"
-          name="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
+          type="radio"
+          name="gender"
+          value="male"
+          checked={gender === "male"}
+          onChange={(e) => setGender(e.target.value)}
         />
-        <br />
-        <br />
-        <label for="email">Email:</label>
+        Male
+      </label>
+      <label>
         <input
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
+          type="radio"
+          name="gender"
+          value="female"
+          checked={gender === "female"}
+          onChange={(e) => setGender(e.target.value)}
         />
-        <br />
-        <br />
-        <label for="password">Password:</label>
+        Female
+      </label>
+      <label>
         <input
-          type="password"
-          id="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
+          type="radio"
+          name="gender"
+          value="other"
+          checked={gender === "other"}
+          onChange={(e) => setGender(e.target.value)}
         />
-        <br />
-        <br />
-        <label>Gender:</label>
-        <div>
-          <input
-            type="radio"
-            id="male"
-            name="gender"
-            value="male"
-            checked={gender === "male"}
-            onChange={(e) => setGender(e.target.value)}
-            required
-          />
-          <label for="male">Male</label>
-          <input
-            type="radio"
-            id="female"
-            name="gender"
-            value="female"
-            checked={gender === "female"}
-            onChange={(e) => setGender(e.target.value)}
-            required
-          />
-          <label for="female">Female</label>
-          <input
-            type="radio"
-            id="other"
-            name="gender"
-            value="other"
-            checked={gender === "other"}
-            onChange={(e) => setGender(e.target.value)}
-            required
-          />
-          <label for="other">Other</label>
-        </div>
-        <br />
-        <br />
-        <label for="dob">Date of Birth:</label>
-        <input
-          type="date"
-          id="dob"
-          name="dob"
-          value={dob}
-          onChange={(e) => setDob(e.target.value)}
-        />
-        <br />
-        <br />
-        <label for="mobile">Mobile:</label>
-        <input
-          type="tel"
-          id="mobile"
-          name="mobile"
-          value={mobile}
-          onChange={(e) => setMobile(e.target.value)}
-        />
-        <br />
-        <br />
-        <label for="role">Role:</label>
-        Admin
+        Other
+      </label>
+    </div>
+  </div>
+
+  <div className="form-group">
+    <label htmlFor="dob">Date of Birth:</label>
+    <input
+      type="date"
+      id="dob"
+      name="dob"
+      value={dob}
+      onChange={(e) => setDob(e.target.value)}
+    />
+  </div>
+
+  <div className="form-group">
+    <label htmlFor="mobile">Mobile:</label>
+    <input
+      type="tel"
+      id="mobile"
+      name="mobile"
+      value={mobile}
+      onChange={(e) => setMobile(e.target.value)}
+    />
+  </div>
+
+  <div className="form-group">
+    <label>Role:</label>
+    <div className="radio-group">
+      <label>
         <input
           type="radio"
           name="role"
@@ -156,7 +164,9 @@ function Signup() {
           checked={role === "admin"}
           onChange={(e) => setRole(e.target.value)}
         />
-        Customer
+        Admin
+      </label>
+      <label>
         <input
           type="radio"
           name="role"
@@ -164,13 +174,18 @@ function Signup() {
           checked={role === "customer"}
           onChange={(e) => setRole(e.target.value)}
         />
-        <br />
-        <br />
-        <button type="submit">Sign Up</button>
-      </form>
-      <br />
-      <br />
-      <Link to="/">Go back</Link>
+        Customer
+      </label>
+    </div>
+  </div>
+
+  <button type="submit" className="signup-btn">Sign Up</button>
+</form>
+
+<div className="form-footer">
+  <Link to="/">← Go back</Link>
+</div>
+
     </>
   );
 }

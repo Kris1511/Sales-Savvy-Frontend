@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 
 function ProductCart({ product, onAddToCart }) {
-
   const [qty, setQty] = useState(1);
 
   if (!product) return null;
-  
+
   const inc = () => setQty((q) => q + 1);
-  
+
   const dec = () => setQty((q) => Math.max(1, q - 1));
 
   return (
@@ -27,9 +26,13 @@ function ProductCart({ product, onAddToCart }) {
         <p className="product-desc">{product.description}</p>
 
         <div className="qty-control">
-          <button onClick={dec} aria-label="decrease quantity">-</button>
-          <span>{ qty }</span>
-          <button onClick={inc} aria-label="increase quantity">+</button>
+          <button onClick={dec} aria-label="decrease quantity">
+            -
+          </button>
+          <span>{qty}</span>
+          <button onClick={inc} aria-label="increase quantity">
+            +
+          </button>
         </div>
 
         <button
