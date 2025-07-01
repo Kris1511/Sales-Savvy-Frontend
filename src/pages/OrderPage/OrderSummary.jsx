@@ -42,7 +42,7 @@ function OrderSummary() {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Qty</th>
+            <th>Quantity</th>
             <th>Price</th>
             <th>Subtotal</th>
           </tr>

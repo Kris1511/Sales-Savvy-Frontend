@@ -46,7 +46,7 @@ function Search_product() {
 
       <form className="search-form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="searchId">Product Name:</label>
+          <label htmlFor="searchId">Product Id:</label>
           <input
             type="text"
             id="searchId"

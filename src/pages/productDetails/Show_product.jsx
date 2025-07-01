@@ -6,10 +6,11 @@ function Show_product() {
   const product = location.state?.product;
 
   return (
-    <div>
-      <h2>Product Details:</h2>
+    <div className="product-details-container">
+      <h2 className="product-details-title">🛍️ Product Details:</h2>
+
       {product ? (
-        <div>
+        <div className="product-details-card">
           <p>
             <strong>ID:</strong> {product.id}
           </p>
@@ -22,19 +23,29 @@ function Show_product() {
           <p>
             <strong>Category:</strong> {product.category}
           </p>
+          
           <p>
-            <strong>Photo:</strong> {product.photo}
+            <strong>Price:</strong> ₹{product.price}
           </p>
           <p>
-            <strong>Price:</strong> {product.price}
+            <strong>Photo:</strong>{" "}
+            <a href={product.photo} target="_blank" rel="noopener noreferrer">
+                  {product.photo ? (
+                    <img src={product.photo} alt={product.name} width="100" />
+                  ) : (
+                    "No Image"
+                  )}
+            </a>
           </p>
         </div>
       ) : (
-        <p>No product data available.</p>
+        <p className="no-product-msg">No product data available.</p>
       )}
+
       <br />
-      <br />
-      <Link to="/searchProduct">Go back</Link>
+      <Link to="/searchProduct" className="btn-back">
+        🔙 Go back
+      </Link>
     </div>
   );
 }
