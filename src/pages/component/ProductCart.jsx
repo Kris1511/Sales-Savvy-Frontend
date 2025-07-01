@@ -1,7 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function ProductCart({ product, onAddToCart }) {
-  const [qty, setQty] = useState(1);
+  const [qty, setQty] = useState(() => {
+    const savedQty = localStorage.getItem("productQty");
+
+    return savedQty ? parseInt(savedQty, 10) : 1;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("productQty", qty);
+  }, [qty]);
 
   if (!product) return null;
 

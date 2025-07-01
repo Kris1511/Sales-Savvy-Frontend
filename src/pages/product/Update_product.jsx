@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Update_product() {
+  const [id, setID] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [photo, setPhoto] = useState("");
+  const [category, setCategory] = useState("");
 
-  const [id, setID] = useState('');
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [photo, setPhoto] = useState('');
-  const [category, setCategory] = useState('');
-
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const data = {
@@ -40,12 +39,10 @@ function Update_product() {
       setPrice("");
       setPhoto("");
       setCategory("");
-
     } catch (error) {
       console.log("Failed to update product");
     }
-  }
-
+  };
 
   return (
     <div className="update-product-container">
@@ -114,7 +111,9 @@ function Update_product() {
           />
         </div>
 
-        <button className="submit-btn" type="submit">Update Product</button>
+        <button className="submit-btn" type="submit">
+          Update Product
+        </button>
       </form>
 
       <div className="back-link">

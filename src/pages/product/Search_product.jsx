@@ -32,7 +32,6 @@ function Search_product() {
 
       // Navigate to Show_product page with product data using state (optional)
       navigate("/showproduct", { state: { product } });
-
     } catch (error) {
       console.error("Error from backend:", error);
       alert("Product not found or server error");
@@ -42,29 +41,29 @@ function Search_product() {
   return (
     <>
       <div className="search-product-container">
-      <h2 className="form-title">🔍 Search Product</h2>
+        <h2 className="form-title">🔍 Search Product</h2>
 
-      <form className="search-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="searchId">Product Id:</label>
-          <input
-            type="text"
-            id="searchId"
-            value={searchId}
-            onChange={(e) => setSearchId(e.target.value)}
-            required
-          />
+        <form className="search-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="searchId">Product Id:</label>
+            <input
+              type="text"
+              id="searchId"
+              value={searchId}
+              onChange={(e) => setSearchId(e.target.value)}
+              required
+            />
+          </div>
+
+          <button type="submit" className="submit-btn">
+            Search Product
+          </button>
+        </form>
+
+        <div className="back-link">
+          <Link to="/product-management">← Go back</Link>
         </div>
-
-        <button type="submit" className="submit-btn">
-          Search Product
-        </button>
-      </form>
-
-      <div className="back-link">
-        <Link to="/product-management">← Go back</Link>
       </div>
-    </div>
     </>
   );
 }

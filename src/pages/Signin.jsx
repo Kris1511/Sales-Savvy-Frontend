@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import '../Style/root.css';
-import '../Style/layout.css';
-import '../Style/component.css';
+import "../Style/root.css";
+import "../Style/layout.css";
+import "../Style/component.css";
 
 function Signin() {
   const [username, setUsername] = useState("");
@@ -46,33 +46,37 @@ function Signin() {
   return (
     <>
       <div className="signin-page">
-      <div className="form-card">
-        <h2 className="form-title">Sign in below</h2>
-        <form onSubmit={handleSubmit} className="form">
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+        <div className="form-card">
+          <h2 className="form-title">Sign in below</h2>
+          <form onSubmit={handleSubmit} className="form">
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
 
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
 
-          <button type="submit" className="btn btn-primary">Sign In</button>
-        </form>
+            <button type="submit" className="submit-btn">
+              Sign In
+            </button>
+          </form>
 
-        <Link to="/" className="back-link">← Go back</Link>
+          <Link to="/" className="back-link">
+            ← Go back
+          </Link>
+        </div>
       </div>
-    </div>
     </>
   );
 }

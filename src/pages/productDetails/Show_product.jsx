@@ -23,18 +23,18 @@ function Show_product() {
           <p>
             <strong>Category:</strong> {product.category}
           </p>
-          
+
           <p>
             <strong>Price:</strong> ₹{product.price}
           </p>
           <p>
             <strong>Photo:</strong>{" "}
             <a href={product.photo} target="_blank" rel="noopener noreferrer">
-                  {product.photo ? (
-                    <img src={product.photo} alt={product.name} width="100" />
-                  ) : (
-                    "No Image"
-                  )}
+              {product.photo ? (
+                <img src={product.photo} alt={product.name} width="100" />
+              ) : (
+                "No Image"
+              )}
             </a>
           </p>
         </div>

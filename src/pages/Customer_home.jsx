@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCart from "../pages/component/ProductCart";
 import { useNavigate } from "react-router-dom";
-import '../Style/root.css';
-import '../Style/layout.css';
-import '../Style/component.css';
+import "../Style/root.css";
+import "../Style/layout.css";
+import "../Style/component.css";
 
 function Customer_home() {
   const [product, setProduct] = useState([]);

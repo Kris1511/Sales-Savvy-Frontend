@@ -101,7 +101,9 @@ function Add_product() {
           />
         </div>
 
-        <button className="submit-btn" type="submit">Add Product</button>
+        <button className="submit-btn" type="submit">
+          Add Product
+        </button>
       </form>
 
       <div className="back-link">

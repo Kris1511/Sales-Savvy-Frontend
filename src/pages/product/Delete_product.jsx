@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Delete_product() {
-
   const [id, setId] = useState();
 
   const handleSubmit = async (e) => {
@@ -10,17 +9,17 @@ function Delete_product() {
 
     try {
       const resp = await fetch(`http://localhost:8080/deleteProduct/${id}`, {
-        method : "DELETE"
+        method: "DELETE",
       });
 
       const msg = await resp.text();
       alert(msg);
-      
-      setId('');
+
+      setId("");
     } catch (error) {
       alert("There is something failed");
     }
-  }
+  };
 
   return (
     <div className="delete-product-container">
@@ -48,7 +47,7 @@ function Delete_product() {
         <Link to="/product-management">← Go back</Link>
       </div>
     </div>
-  )
+  );
 }
 
-export default Delete_product
+export default Delete_product;
