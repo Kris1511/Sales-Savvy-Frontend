@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 
 function ProductCart({ product, onAddToCart }) {
   const [qty, setQty] = useState(() => {
-    const savedQty = localStorage.getItem("productQty");
+    const savedQty = localStorage.getItem(`productQty-${product.id}`);
 
     return savedQty ? parseInt(savedQty, 10) : 1;
   });
 
   useEffect(() => {
-    localStorage.setItem("productQty", qty);
-  }, [qty]);
+    localStorage.setItem(`productQty-${product.id}`, qty);
+  }, [qty, product.id]);
 
   if (!product) return null;
 
