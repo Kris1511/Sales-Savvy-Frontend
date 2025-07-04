@@ -55,6 +55,7 @@ function Signin() {
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              autocomplete = "username"
               required
             />
 
@@ -64,6 +65,7 @@ function Signin() {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              autocomplete = "password"
               required
             />
 
